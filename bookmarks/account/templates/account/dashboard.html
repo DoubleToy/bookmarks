@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Приборная панель{% endblock %}
+
+{% block content %}
+    <h1>Приборная панель</h1>
+    {% with total_images_created=request.user.images_created.count %}
+    <p>Добро пожаловать на вашу панель мониторинга. Вы добавили в закладки {{ total_images_created }} изображение{{ total_images_created|pluralize }}.</p>
+  {% endwith %}
+
+  <p>Перетащите следующую кнопку на панель инструментов закладок, чтобы добавить в закладки изображения с других веб-сайтов → <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">Добавьте его в закладки</a><p>
+
+  <p>Вы также можете <a href="{% url "edit" %}">отредактируйте свой профиль</a> or <a href="{% url "password_change" %}">измените свой пароль</a>.<p>
+
+    <h2>What's happening</h2>
+  <div id="action-list">
+    {% for action in actions %}
+      {% include "actions/action/detail.html" %}
+    {% endfor %}
+  </div>
+{% endblock %}
